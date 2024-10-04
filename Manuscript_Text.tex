@@ -1,0 +1,27 @@
+\documentclass{article}
+
+%% ./Manuscript_Text.tex
+
+
+% Edit to ref between main text & supplemental material
+\usepackage{xr}
+\makeatletter
+\newcommand*{\addFileDependency}[1]{% argument=file name and extension
+  \typeout{(#1)}
+  \@addtofilelist{#1}
+  \IfFileExists{#1}{}{\typeout{No file #1.}}
+}
+\makeatother
+
+\newcommand*{\myexternaldocument}[1]{%
+    \externaldocument{#1}%
+    \addFileDependency{#1.tex}%
+    \addFileDependency{#1.aux}%
+}
+
+\myexternaldocument{Supplemental_Info}
+
+\begin{document}
+Main manuscript content.
+Reference to supplemental info: \ref{suppl:section1}
+\end{document}
